@@ -36,7 +36,7 @@ def parse(file):
                 newline = f.readline()
                 animal_ID = newline.split("\t")[line.lower().split('\t').index('animal id')]
                 partner_pos = newline.split("\t")[line.lower().split('\t').index('side of partner')]
-                treatment_group = newline.split("\t")[line.lower().split('\t').index('treatment')]
+                treatment_group = newline.split("\t")[line.lower().split('\t').index('treatment group')]
                 raw_date = newline.split("\t")[line.lower().split('\t').index('last modified date')]
 
                 #replace '/' with '_', then split date from the time and use that
@@ -61,8 +61,7 @@ def parse(file):
             #also grab the event rule name for some other key metrics,
             #like vole location, and vole within 100 mm
 
-            rules = {}
-            event_rule_numbers{}
+
 
             if 'Social Contact [ 1 with 2 ] in Area left'.lower() in line.lower():
                 huddle_left = line.split(':')[0]
