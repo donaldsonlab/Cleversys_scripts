@@ -1,0 +1,74 @@
+Video File :Z:\Gonzalez, Cassandra\PPT\20190703\Video\07032019\CSIVideo_2019_7_3_14_16_34.mpg
+Background :Z:\Gonzalez, Cassandra\PPT\20190703\Video\07032019\CSIVideo_2019_7_3_14_16_34.bmp
+Arena File :Z:\GONZALEZ, CASSANDRA\PPT\20190703\RESULT\07032019\07032019_cg_4.TCG
+Arena   ID :4
+
+Video Width :720
+Video Height:480
+Frame Rate  :29.970000
+
+Frame From  :9891
+Frame   To  :334378
+
+Begin Time  :   330.03(s)
+End   Time  : 11157.09(s)
+Record Num  :323676
+
+Attributes:
+Last Modified Date	Animal id	Treatment group	Side of partner	Fill in information
+07/09/2019 17:38:33	2794	Naive	right
+
+Arena Bounding Box(mm): Left :1109	 Right :1932	 Top :271	 Bottom :551
+
+EventRule1: Area:vole 1 Stay/Hide In left
+EventRule2: Area:vole 1 Stay/Hide In right
+EventRule3: Area:vole 1 Stay/Hide In center
+EventRule4: Area:vole 1 Stay/Hide In left chamber
+EventRule5: Area:vole 1 Stay/Hide In right chamber
+EventRule6: Area:vole 1 Stay/Hide In taunt left
+EventRule7: Area:vole 1 Stay/Hide In taunt right
+EventRule8: Area:vole 1 Stay/Hide In
+EventRule9: vole 1 Locomotion in Area left
+EventRule10: vole 1 Locomotion in Area right
+EventRule11: vole 1 Locomotion in Area center
+EventRule12: vole 1 Locomotion in Area left chamber
+EventRule13: vole 1 Locomotion in Area right chamber
+EventRule14: vole 1 Locomotion in Area taunt left
+EventRule15: vole 1 Locomotion in Area taunt right
+EventRule16: vole 1 Locomotion
+EventRule17: Social Contact [ 1 with 2 ] in Area left while Joint Motion < 0.040
+EventRule18: Social Contact [ 1 with 3 ] in Area left while Joint Motion < 0.040
+EventRule19: Social Contact [ 2 with 3 ] in Area left while Joint Motion < 0.040
+EventRule20: Social Contact [ 1, 2 with 3 ] in Area left while Joint Motion < 0.040
+EventRule21: Social Contact [ 1 with 2 ] in Area right while Joint Motion < 0.040
+EventRule22: Social Contact [ 1 with 3 ] in Area right while Joint Motion < 0.040
+EventRule23: Social Contact [ 2 with 3 ] in Area right while Joint Motion < 0.040
+EventRule24: Social Contact [ 1, 2 with 3 ] in Area right while Joint Motion < 0.040
+EventRule25: Distance between [ 1 and 2 ] Less Than 100.00 mm
+EventRule26: Distance between [ 1 and 3 ] Less Than 100.00 mm
+EventRule27: Distance between [ 2 and 1 ] Less Than 100.00 mm
+EventRule28: Distance between [ 2 and 3 ] Less Than 100.00 mm
+EventRule29: Distance between [ 3 and 1 ] Less Than 100.00 mm
+EventRule30: Distance between [ 3 and 2 ] Less Than 100.00 mm
+EventRule31: Dist between Center of Animal 1 and Center of Animal 2 >  0.00 mm
+EventRule32: Dist between Center of Animal 1 and Center of Animal 3 >  0.00 mm
+EventRule33: Dist between Center of Animal 2 and Center of Animal 1 >  0.00 mm
+EventRule34: Dist between Center of Animal 2 and Center of Animal 3 >  0.00 mm
+EventRule35: Dist between Center of Animal 3 and Center of Animal 1 >  0.00 mm
+EventRule36: Dist between Center of Animal 3 and Center of Animal 2 >  0.00 mm
+
+
+Format:FrameNum	[AnimalID]	CenterX(mm)	CenterY(mm)	NoseX(mm)	NoseY(mm)	Motion	Orientation(-pi/2 to pi/2)	Axis[0](mm)	Axis[1](mm)	TurningAngleSum	DistanceSum(mm)	[Center_Areas]	[Nose_Areas]	[AnimalID]	CenterX(mm)	CenterY(mm)	NoseX(mm)	NoseY(mm)	Motion	Orientation(-pi/2 to pi/2)	Axis[0](mm)	Axis[1](mm)	TurningAngleSum	DistanceSum(mm)	[Center_Areas]	[Nose_Areas]	[AnimalID]	CenterX(mm)	CenterY(mm)	NoseX(mm)	NoseY(mm)	Motion	Orientation(-pi/2 to pi/2)	Axis[0](mm)	Axis[1](mm)	TurningAngleSum	DistanceSum(mm)	[Center_Areas]	[Nose_Areas]	EventRule1	EventRule2	EventRule3	EventRule4	EventRule5	EventRule6	EventRule7	EventRule8	EventRule9	EventRule10	EventRule11	EventRule12	EventRule13	EventRule14	EventRule15	EventRule16	EventRule17	EventRule18	EventRule19	EventRule20	EventRule21	EventRule22	EventRule23	EventRule24	EventRule25	EventRule26	EventRule27	EventRule28	EventRule29	EventRule30	EventRule31	EventRule32	EventRule33	EventRule34	EventRule35	EventRule36
+
+9891	[1]	1451	368	1452	337	0.000000	1.949896	37	24	0.000000	0.000000	[center]	[center]	[2]	1219	413	1183	430	0.000000	-3.011922	45	24	0.000000	0.000000	[left,left chamber]	[left,left chamber]	[3]	1868	314	1836	317	0.000000	2.976387	35	19	0.000000	0.000000	[right,right chamber]	[right,right chamber]	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9892	[1]	1452	368	1426	351	0.003922	1.948582	37	24	0.075330	0.000000	[center]	[center]	[2]	1219	413	1262	405	0.039216	0.394913	43	22	-15.197281	0.000000	[left,left chamber]	[left,left chamber]	[3]	1867	314	1836	317	0.031373	2.967377	34	19	0.516253	0.000000	[right,right chamber]	[right,right chamber]	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9893	[1]	1451	368	1426	351	0.000000	1.954336	37	24	-0.254390	0.000000	[center]	[center]	[2]	1219	412	1262	405	0.031373	0.380536	43	23	-14.373537	0.000000	[left,left chamber]	[left,left chamber]	[3]	1867	314	1836	317	0.015686	-3.140881	34	19	-9.506256	0.000000	[right,right chamber]	[right,right chamber]	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9894	[1]	1451	368	1426	351	0.007843	1.958490	37	24	-0.492361	0.000000	[center]	[center]	[2]	1219	412	1262	405	0.003922	0.373319	43	23	-13.960035	0.000000	[left,left chamber]	[left,left chamber]	[3]	1867	314	1836	317	0.031373	2.967247	35	18	0.523725	0.000000	[right,right chamber]	[right,right chamber]	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9895	[1]	1451	368	1426	351	0.000000	1.960369	37	23	-0.600046	0.000000	[center]	[center]	[2]	1219	412	1262	407	0.003922	0.369394	43	23	-13.735195	0.000000	[left,left chamber]	[left,left chamber]	[3]	1867	314	1836	317	0.031373	-3.140881	34	19	-9.506256	0.000000	[right,right chamber]	[right,right chamber]	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9896	[1]	1451	367	1426	351	0.023529	1.956041	36	24	-0.352083	0.000000	[center]	[center]	[2]	1219	412	1262	405	0.007843	0.367522	43	23	-13.627910	0.000000	[left,left chamber]	[left,left chamber]	[3]	1867	314	1836	317	0.015686	2.967377	34	19	0.516253	0.000000	[right,right chamber]	[right,right chamber]	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9897	[1]	1450	367	1426	351	0.058824	1.861753	35	24	5.050263	0.000000	[center]	[center]	[2]	1219	412	1262	405	0.003922	0.344360	46	24	-12.300813	0.000000	[left,left chamber]	[left,left chamber]	[3]	1867	314	1836	317	0.027451	3.140524	34	19	-9.404366	0.000000	[right,right chamber]	[right,right chamber]	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9898	[1]	1450	367	1452	337	0.035294	1.844947	35	24	6.013129	0.000000	[center]	[center]	[2]	1219	412	1262	405	0.007843	0.344353	46	24	-12.300442	0.000000	[left,left chamber]	[left,left chamber]	[3]	1799	428	1893	504	0.027451	-1.514925	113	51	77.333311	0.000000	[center,right chamber,taunt right]	[right,right chamber]	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9899	[1]	1450	367	1452	337	0.031373	1.854841	34	24	5.446285	0.000000	[center]	[center]	[2]	1219	412	1262	405	0.011765	0.345167	46	24	-12.347072	0.000000	[left,left chamber]	[left,left chamber]	[3]	1808	414	1879	297	0.203922	1.408780	124	59	89.817279	0.000000	[right,right chamber]	[right,right chamber]	0	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1
+9900	[1]	1450	367	1452	337	0.003922	1.850950	34	24	5.669229	0.000000	[center]	[center]	[2]	1219	412	1262	407	0.011765	0.372883	43	22	-13.935076	0.000000	[left,left chamber]	[left,left chamber]	[3]	1811	413	1879	297	0.121569	1.394143	126	63	90.655911	0.000000	[right,right chamber]	[right,right chamber]	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	1	0	1	1	0	1
+9901	[1]	-1	-1	-1	-1	0.000000	0.000000	0	0	5.669229	0.000000	[]	[]	[2]	1269	429	1287	549	0.678431	-0.709866	58	50	48.101896	0.000000	[left,left chamber]	[left,left chamber]	[3]	1816	414	1876	297	0.125490	1.392638	128	71	90.742190	0.000000	[right,right chamber]	[right,right chamber]	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	1	0	1	1	0	1
+9902	[1]	1824	414	1879	297	0.003922	1.403441	-90	58	5.669229	0.000000	[]	[]	[2]	1265	442	1293	549	0.282353	-1.249450	71	50	79.017784	0.000000	[left,left chamber]	[left,left chamber]	[3]	1824	414	1876	297	0.129412	1.403867	-90	58	90.742190	0.000000	[]	[]	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	1	0	1	1	0	1
