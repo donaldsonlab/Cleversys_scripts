@@ -15,6 +15,21 @@ def parse(file):
         found = False
         frame_rate = None
         skip = 1
+
+        #edit these if you want to change what rules are recoreded
+        event_rules = {'Social Contact [ 1 with 2 ] in Area left':'huddle_left',
+                        'Social Contact [ 1 with 3 ] in Area right ':'huddle_right',
+                        'Distance between [ 1 and 2 ] Less Than 100.00 mm': 'proximity_left',
+                        'Distance between [ 1 and 3 ] Less Than 100.00 mm':'proximity_right',
+                        'Area:Vole 1 Stay/Hide In left':'left_chamber',
+                        'Area:Vole 1 Stay/Hide In right':'right_chamber',
+                        'Area:Vole 1 Stay/Hide In center':'center_chamber'
+                        }
+
+
+        #a dictionary where we can put our found event rule names for later
+        found_rules = {event_rules[key]:None for key in event_rules.keys()}
+
         while not found:
             skip +=1
 
@@ -36,7 +51,13 @@ def parse(file):
                 newline = f.readline()
                 animal_ID = newline.split("\t")[line.lower().split('\t').index('animal id')]
                 partner_pos = newline.split("\t")[line.lower().split('\t').index('side of partner')]
-                treatment_group = newline.split("\t")[line.lower().split('\t').index('treatment group')]
+
+                treatment_idx = [i for i, s in enumerate(line.lower().split('\t')) if 'treatment' in s]
+                if len(treatment_idx)>1:
+                    print('too many matches for treatment in metadata')
+                else:
+                    treatment_group = newline.split("\t")[treatment_idx[0]]
+
                 raw_date = newline.split("\t")[line.lower().split('\t').index('last modified date')]
 
                 #replace '/' with '_', then split date from the time and use that
@@ -59,11 +80,17 @@ def parse(file):
             #corrseponding to the metric
 
             #also grab the event rule name for some other key metrics,
-            #like vole location, and vole within 100 mm
+            #like vole location, and vole within 100 mm.
+
+            #acheive by iterating over dict
 
 
+            for key in event_rules.keys():
+                if key.lower() in line.lower():
+                    found_rules[event_rules[key]] = line.split(':')[0]
+                    break
 
-            if 'Social Contact [ 1 with 2 ] in Area left'.lower() in line.lower():
+            '''if 'Social Contact [ 1 with 2 ] in Area left'.lower() in line.lower():
                 huddle_left = line.split(':')[0]
 
             if 'Social Contact [ 1 with 3 ] in Area right '.lower() in line.lower():
@@ -82,7 +109,7 @@ def parse(file):
                 right_chamber = line.split(":")[0]
 
             if 'Area:Vole 1 Stay/Hide In center'.lower() in line.lower():
-                center_chamber = line.split(":")[0]
+                center_chamber = line.split(":")[0]'''
 
     #READ IN WITH PANDAS
     df = pd.read_table(file, skiprows = skip, header = None)

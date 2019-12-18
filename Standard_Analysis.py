@@ -27,8 +27,8 @@ if choose_save_dir == 'yes':
 else:
     save_dir = start_dir'''
 
-start_dir = "/Volumes/DonaldsonLab/Xander Bradeen/Honor's Thesis Project/PPT/12_12_19_B1 4wk PPT/Result/Text files"
-save_dir = "/Volumes/DonaldsonLab/Xander Bradeen/Honor's Thesis Project/PPT/12_12_19_B1 4wk PPT/Result/Text files"
+start_dir = "/Volumes/DonaldsonLab/Xander Bradeen/Honor's Thesis Project/PPT/12_12_19_B1 4wk PPT/Result/Re-run/text files"
+save_dir = "/Volumes/DonaldsonLab/Xander Bradeen/Honor's Thesis Project/PPT/12_12_19_B1 4wk PPT/Result/Re-run/Text files"
 supress_csv = True
 
 #make a new savdir for plots only
