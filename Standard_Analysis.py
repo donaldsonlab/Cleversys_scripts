@@ -27,19 +27,19 @@ if choose_save_dir == 'yes':
 else:
     save_dir = start_dir'''
 
-start_dir = "/Volumes/DonaldsonLab/Xander Bradeen/Honor's Thesis Project/PPT/12_12_19_B1 4wk PPT/Result/Re-run/text files"
-save_dir = "/Volumes/DonaldsonLab/Xander Bradeen/Honor's Thesis Project/PPT/12_12_19_B1 4wk PPT/Result/Re-run/Text files"
-supress_csv = True
+start_dir = "/Users/davidprotter/Downloads/Julie PPT"
+save_dir = "/Users/davidprotter/Downloads/Julie PPT"
+supress_csv = False
 
 #make a new savdir for plots only
-plot_out_path = os.path.join(save_dir, 'plots')
+plot_out_path = os.path.join(save_dir, 'python_output')
 try:
     os.mkdir(plot_out_path)
 except:
     print('plot dir already exists')
 
 #make a new directory for csv files
-csv_out_path = os.path.join(save_dir, 'csv_files')
+csv_out_path = os.path.join(save_dir, 'parsed_csv_files')
 try:
     os.mkdir(csv_out_path)
 except:
@@ -116,3 +116,6 @@ for i, file in enumerate(files):
     huddle_fig = uf.make_huddle_time_polt(hp, hn, animal_num)
     time_3d_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_movement'))
     huddle_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_huddle_time'))
+
+#kinda assuming they're all from the same date here
+output_metrics.to_csv(os.path.join(plot_out_path, f'output_metrics_{date}.csv'))

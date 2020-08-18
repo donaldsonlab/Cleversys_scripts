@@ -6,6 +6,7 @@ import math
 import seaborn as sns
 import os
 
+version = '1.0'
 
 def parse(file):
     '''parse a file and return a dataframe and the animal ID'''
@@ -21,10 +22,9 @@ def parse(file):
                         'Social Contact [ 1 with 3 ] in Area right ':'huddle_right',
                         'Distance between [ 1 and 2 ] Less Than 100.00 mm': 'proximity_left',
                         'Distance between [ 1 and 3 ] Less Than 100.00 mm':'proximity_right',
-                        'Area:Vole 1 Stay/Hide In left':'left_chamber',
-                        'Area:Vole 1 Stay/Hide In right':'right_chamber',
-                        'Area:Vole 1 Stay/Hide In center':'center_chamber'
-                        }
+                        '1 Stay/Hide In left':'left_chamber',
+                        '1 Stay/Hide In right':'right_chamber',
+                        '1 Stay/Hide In center':'center_chamber'}
 
 
         #a dictionary where we can put our found event rule names for later
@@ -110,7 +110,9 @@ def parse(file):
 
             if 'Area:Vole 1 Stay/Hide In center'.lower() in line.lower():
                 center_chamber = line.split(":")[0]'''
-
+    for k in found_rules.keys():
+        if not found_rules[k]:
+            print(f'couldnt find a line containing "{k}" in the file head. double check the file.')
     #READ IN WITH PANDAS
     df = pd.read_table(file, skiprows = skip, header = None)
 
@@ -168,16 +170,18 @@ def parse(file):
     #be overriden.
 
     if partner_pos.lower() == 'l' or partner_pos.lower() == 'left':
-        df.rename(columns={huddle_left:'huddle_partner',
-        huddle_right:'huddle_novel', proximity_left:'partner_dist_less_10cm',
-        proximity_right:'novel_dist_less_10cm',left_chamber:'chamber_partner',
-        right_chamber:'chamber_novel',center_chamber:'chamber_center'}, inplace = True)
+
+        df.rename(columns={found_rules['huddle_left']:'huddle_partner',
+        found_rules['huddle_right']:'huddle_novel', found_rules['proximity_left']:'partner_dist_less_10cm',
+        found_rules['proximity_right']:'novel_dist_less_10cm',found_rules['left_chamber']:'chamber_partner',
+        found_rules['right_chamber']:'chamber_novel',found_rules['center_chamber']:'chamber_center'}, inplace = True)
 
     else:
-        df.rename(columns={huddle_right:'huddle_partner',
-        huddle_left:'huddle_novel', proximity_right:'partner_dist_less_10cm',
-        proximity_left:'novel_dist_less_10cm', right_chamber:'chamber_partner',
-        left_chamber:'chamber_novel',center_chamber:'chamber_center'}, inplace = True)
+
+        df.rename(columns={found_rules['huddle_right']:'huddle_partner',
+        found_rules['huddle_left']:'huddle_novel', found_rules['proximity_right']:'partner_dist_less_10cm',
+        found_rules['proximity_left']:'novel_dist_less_10cm', found_rules['right_chamber']:'chamber_partner',
+        found_rules['left_chamber']:'chamber_novel',found_rules['center_chamber']:'chamber_center'}, inplace = True)
 
     #reset frames so they start at 1
     df['FrameNum'] = df['FrameNum'] - df['FrameNum'].min() + 1
@@ -268,6 +272,6 @@ def assemble_names(directory):
 
 def parse_and_convert_csv(file, out_file):
     '''parse a file aaaannnnndd output a csv file'''
-    df, ani = parse(file)
+    df, ani, frame_rate, date = parse(file)
     df.to_csv(out_file)
-    return df, ani
+    return df, ani, frame_rate, date

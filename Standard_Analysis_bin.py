@@ -22,9 +22,12 @@ else:
     initialdir = ''
 
 
-start_dir ='/Users/davidprotter/Documents/Donaldson Lab/skratch/2019_06_26_TRAP_Group3/Text files'
+start_dir ='/Users/davidprotter/Downloads/Julie PPTs'
 bin_time = 30*60
 save_dir = '/Users/davidprotter/Documents/Donaldson Lab/skratch/2019_06_26_TRAP_Group3/Text files'
+
+
+###the following code was for using the computer's messagebox to set 
 '''messagebox.showinfo('yo dawg', 'where the files at?!?!')
 start_dir = filedialog.askdirectory(initialdir = initialdir)
 
