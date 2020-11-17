@@ -22,9 +22,9 @@ else:
     initialdir = ''
 
 
-start_dir ='/Users/davidprotter/Downloads/Julie PPTs'
-bin_time = 30*60
-save_dir = '/Users/davidprotter/Documents/Donaldson Lab/skratch/2019_06_26_TRAP_Group3/Text files'
+start_dir ='/home/dprotter/Downloads/Julie Cleversys Data'
+bin_time = 7200 #in seconds
+save_dir = '/home/dprotter/Downloads/Julie Cleversys Data'
 
 
 ###the following code was for using the computer's messagebox to set 
@@ -49,6 +49,7 @@ plot_out_path = os.path.join(save_dir, 'plots')
 try:
     os.mkdir(plot_out_path)
 except:
+    traceback.print_exc()
     print('plot dir already exists')
 
 #make a new directory for csv files
@@ -84,8 +85,8 @@ for i, file in enumerate(files):
     base_file_name = os.path.basename(file).split('.TXT')[0]+'_'+ani+'_'+'.csv'
     new_file_name = os.path.join(csv_out_path, base_file_name)
 
-    '''full_df.to_csv(os.path.join(save_dir,new_file_name))
-    print(f'it took {time.time() - time_2} sec to save to csv')'''
+    full_df.to_csv(os.path.join(save_dir,new_file_name))
+    print(f'it took {time.time() - time_2} sec to save to csv')
 
     #the start and finish times of the first window. we will use These
     #to slice the full data frame
@@ -156,9 +157,11 @@ for i, file in enumerate(files):
 
     time_3d_fig = uf.make_3d_movement_plot(df)
     time_3d_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_movement'))
+    plt.close(time_3d_fig)
 
     for ani in output_metrics.animal.unique():
         sli = output_metrics.loc[output_metrics.animal == ani]
         fig = uf.binned_huddle_fig(sli, ani)
         fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_huddle'))
-output_metrics.to_csv('/Users/davidprotter/Downloads/terst.csv')
+        plt.close(fig)
+output_metrics.to_csv('/home/dprotter/Downloads/Julie Cleversys Data/terst.csv')
