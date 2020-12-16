@@ -71,10 +71,10 @@ def binned_huddle_fig(sli, ani):
     hp = []
     hn = []
     round_length = []
-    for round in rounds:
-        hp.append(sli.loc[sli['bin number'] == round, 'huddle time partner'][0])
-        hn.append(sli.loc[sli['bin number'] == round, 'huddle time novel'][0])
-        round_length.append(sli.loc[sli['bin number'] == round, 'bin length (min)'][0])
+    for rr in rounds:
+        hp.append(sli.loc[sli['bin number'] == rr, 'huddle time partner'][0])
+        hn.append(sli.loc[sli['bin number'] == rr, 'huddle time novel'][0])
+        round_length.append(sli.loc[sli['bin number'] == rr, 'bin length (min)'][0])
     hp_ar = np.asarray(hp)
     hn_ar = np.asarray(hn)
 

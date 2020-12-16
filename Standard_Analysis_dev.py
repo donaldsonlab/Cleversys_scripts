@@ -104,7 +104,7 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
         animal_num = ani.replace("['", '').replace("']", '')
         this_metrics = pd.DataFrame(data = {'animal':[animal_num],
                                             'num_reassigned_rows':[reassigned_rows],
-                                            'reassigned_pct':[100*np.round(reassigned_rows / len(df), 3)],
+                                            'reassigned_pct':[reassigned_rows / len(df)],
                                             'treatment':[treatment_group],
                                             'bin number':0,
                                             'huddle time partner':[hp],
@@ -125,11 +125,10 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
         time_3d_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_movement'))
         huddle_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_huddle_time'))
 
-        pd.DataFrame(data = change_log[1:], columns=change_log[0]).to_csv(
-                                    os.path.join(plot_out_path, f'change_log_{ani}_{date}.csv'))
-
     #kinda assuming they're all from the same date here
     output_metrics.to_csv(os.path.join(plot_out_path, f'output_metrics_{date}.csv'))
-    
+    pd.DataFrame(data = change_log[1:], columns=change_log[0]).to_csv(
+                                    os.path.join(plot_out_path, f'change_log_{ani}_{date}.csv'))
+
 if __name__:
     run_analysis()
