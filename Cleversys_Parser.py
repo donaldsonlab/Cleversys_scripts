@@ -37,6 +37,9 @@ def parse(file):
 
 
         #a dictionary where we can put our found event rule names for later
+        #we are transposing here, so that, for example, we get:
+        #event_rules ={'1 Stay/Hide In left chamber':'left_chamber', .... }
+        #found_rules ={'left_chamber':None, ... }
         found_rules = {event_rules[key]:None for key in event_rules.keys()}
 
         while not found:
@@ -93,7 +96,7 @@ def parse(file):
 
             #acheive by iterating over dict
 
-
+            #note, could speed this up by making event_rules.keys a list and using a single "in" boolean
             for key in event_rules.keys():
                 if key.lower() in line.lower():
                     found_rules[event_rules[key]] = line.split(':')[0]
@@ -174,10 +177,12 @@ def parse(file):
         found_rules['left_chamber']:'chamber_novel',found_rules['center_chamber']:'chamber_center'}, inplace = True)
 
     #reset frames so they start at 1
+    df['original_frames'] = df['FrameNum']
     df['FrameNum'] = df['FrameNum'] - df['FrameNum'].min() + 1
-
+    
     #calculate time from frame num ( frame * 1 / (frame / sec)  --> sec )
     df['Time'] = df.FrameNum/frame_rate
+    df['original_time'] = df.original_frames / frame_rate
 
     #add column of treatment group (IE Naive, Drug, etc)
     df['Treatment Group'] = treatment_group
@@ -241,7 +246,7 @@ def parse(file):
     df['distance_traveled'] = dist_traveled
     df['distance_traveled_partner'] = dist_traveled_partner
     df['distance_traveled_novel'] = dist_traveled_novel
-
+    
     return df, animal_ID, frame_rate, date
 
 def assemble_names(directory):
@@ -268,7 +273,10 @@ def parse_and_convert_csv(file, out_file):
 
 
 
-
+'''----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------'''
 
 
 
@@ -514,9 +522,10 @@ def parse_dev(file):
     df['distance_traveled_partner'] = dist_traveled_partner
     df['distance_traveled_novel'] = dist_traveled_novel
 
-    df_out, mod_log = correct_chamber_assignments(df)
+    print(found_rules)
+    #df_out, mod_log = correct_chamber_assignments(df)
     
-    return df_out, animal_ID, frame_rate, date, mod_log
+    return df, animal_ID, frame_rate, date
 
 def get_previous_location(df, search_start_index, current_loc = None, window = 3,max_distance = 10):
     '''iterate backwards over a dataframe from a starting index to find the last time an animal's position was known 

@@ -1,4 +1,4 @@
-from Cleversys_Parser import parse_dev, assemble_names
+import Cleversys_Parser as cp
 import os
 import platform
 import pandas as pd
@@ -49,7 +49,7 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
         print('csv dir already exists')
 
     #get file paths
-    files = assemble_names(start_dir)
+    files = cp.assemble_names(start_dir)
     num_files = len(files)
 
     output_metrics = pd.DataFrame()
@@ -59,7 +59,7 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
         print(f'working on file {i+1} of {num_files}')
         print(file)
         try:
-            df, ani, frame_rate, date, change_log = parse_dev(file)
+            df, ani, frame_rate, date = cp.parse(file)
         except Exception:
             print('oh no, a wild exception appears!')
             print(traceback.format_exc())
@@ -67,15 +67,12 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
             print(file)
 
             continue
+        
         print(f'it took {time.time() - start_time} sec to parse')
-        time_2 = time.time()
-        #save the DF as a CSV file for fast parsing later. Can easily open this CSV
-        #in your favorite program/language for analysis.
-        base_file_name = os.path.basename(file).split('.TXT')[0]+'_'+ani+'_'+'.csv'
-        new_file_name = os.path.join(csv_out_path, base_file_name)
-        if not suppress_csv:
-            df.to_csv(os.path.join(save_dir,new_file_name))
-        print(f'it took {time.time() - time_2} sec to save to csv')
+        
+        time_change = time.time()
+        df, change_log = cp.correct_chamber_assignments(df)
+        print(f'took {time.time() - time_change} to fix errant chamber assignments')
         #huddle time novel,  partner, and total
         hn, hp, htot = uf.huddle_time(df, frame_rate)
 
@@ -83,7 +80,7 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
         treatment_group = df['Treatment Group'].unique()[0]
 
         #calculate time in partner, novel, and center chambers
-        partner_time, novel_time, center_time = uf.chamber_time(df, frame_rate)
+        chamber_time_dict = uf.chamber_time(df, frame_rate)
 
         #normalized preference (--> pHuddle %)
         if htot >0:
@@ -111,9 +108,9 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
                                             'huddle time novel':[hn],
                                             'huddle time total':[htot],
                                             'percent pHuddle':[norm_pref],
-                                            'chamber time partner':[partner_time],
-                                            'chamber time novel':[novel_time],
-                                            'chamber time center':[center_time],
+                                            'chamber time partner':[chamber_time_dict['chamber_partner']],
+                                            'chamber time novel':[chamber_time_dict['chamber_novel']],
+                                            'chamber time center':[chamber_time_dict['chamber_center']],
                                             'average distance to novel':[average_distance_novel],
                                             'average_distance to partner':[average_distance_partner],
                                             'total distance traveled': [total_distance_traveled],
@@ -127,6 +124,13 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
 
         pd.DataFrame(data = change_log[1:], columns=change_log[0]).to_csv(
                                     os.path.join(plot_out_path, f'change_log_{ani}_{date}.csv'))
+        
+        #save the DF as a CSV file for fast parsing later. Can easily open this CSV
+        #in your favorite program/language for analysis.
+        base_file_name = os.path.basename(file).split('.TXT')[0]+'_'+ani+'_'+'.csv'
+        new_file_name = os.path.join(csv_out_path, base_file_name)
+        if not suppress_csv:
+            df.to_csv(os.path.join(save_dir,new_file_name))
 
     #kinda assuming they're all from the same date here
     output_metrics.to_csv(os.path.join(plot_out_path, f'output_metrics_{date}.csv'))

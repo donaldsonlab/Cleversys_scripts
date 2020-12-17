@@ -21,7 +21,7 @@ def chamber_time(df, frame_rate):
     chamber_partner = len(df.loc[df['chamber_partner'] >0]) / frame_rate
     chamber_center = len(df.loc[df['chamber_center'] >0]) / frame_rate
 
-    return chamber_novel, chamber_partner, chamber_center
+    return {'chamber_partner':chamber_partner, 'chamber_novel':chamber_novel, 'chamber_center':chamber_center}
 
 def make_3d_movement_plot(df):
     '''make a 3d plot of animal movement over time'''
