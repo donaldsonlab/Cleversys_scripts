@@ -96,7 +96,7 @@ def run_analysis(start_dir, save_dir, suppress_csv):
         #note reassigned rows
         reassigned_rows = len(df.loc[df['modified_due_to_uncertainty'] > 0])
         percent_modified=100*np.round(reassigned_rows / len(df), 3)
-        print('Percent of file reassigned due to uncertainty ' + str(percent_modified*100) + '%')
+        print('Percent of file reassigned due to uncertainty ' + str(percent_modified) + '%')
         
         animal_num = ani.replace("['", '').replace("']", '')
         this_metrics = pd.DataFrame(data = {'animal':[animal_num],
