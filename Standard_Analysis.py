@@ -28,12 +28,10 @@ else:
     save_dir = start_dir'''
 
 
-def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracking txt files/Baseline_Cohort1", 
-                 save_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracking txt files/Baseline_Cohort1_output",
-                 suppress_csv = True):
+def run_analysis(start_dir, save_dir, suppress_csv):
     
-    if not os.path.isdir("/media/dprotter/Storage/Cleversys/CleverSys tracking txt files/Baseline_Cohort1_output"):
-        os.mkdir("/media/dprotter/Storage/Cleversys/CleverSys tracking txt files/Baseline_Cohort1_output")
+    if not os.path.isdir(start_dir):
+        os.mkdir(start_dir)
     #make a new savdir for plots only
     plot_out_path = os.path.join(save_dir, 'python_output')
     try:
@@ -97,23 +95,23 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
 
         #note reassigned rows
         reassigned_rows = len(df.loc[df['modified_due_to_uncertainty'] > 0])
+        percent_modified=100*np.round(reassigned_rows / len(df), 3)
+        print('Percent of file reassigned due to uncertainty ' + str(percent_modified*100) + '%')
         
         animal_num = ani.replace("['", '').replace("']", '')
         this_metrics = pd.DataFrame(data = {'animal':[animal_num],
-                                            'num_reassigned_rows':[reassigned_rows],
-                                            'reassigned_pct':[100*np.round(reassigned_rows / len(df), 3)],
                                             'treatment':[treatment_group],
                                             'bin number':0,
-                                            'huddle time partner':[hp],
-                                            'huddle time novel':[hn],
-                                            'huddle time total':[htot],
-                                            'percent pHuddle':[norm_pref],
-                                            'chamber time partner':[chamber_time_dict['chamber_partner']],
-                                            'chamber time novel':[chamber_time_dict['chamber_novel']],
-                                            'chamber time center':[chamber_time_dict['chamber_center']],
-                                            'average distance to novel':[average_distance_novel],
-                                            'average_distance to partner':[average_distance_partner],
-                                            'total distance traveled': [total_distance_traveled],
+                                            'huddle_time_partner':[hp],
+                                            'huddle_time_novel':[hn],
+                                            'huddle_time_total':[htot],
+                                            'percent_pHuddle':[norm_pref],
+                                            'chamber_time_partner':[chamber_time_dict['chamber_partner']],
+                                            'chamber_time_novel':[chamber_time_dict['chamber_novel']],
+                                            'chamber_time_center':[chamber_time_dict['chamber_center']],
+                                            'average_distance_to_novel':[average_distance_novel],
+                                            'average_distance_to_partner':[average_distance_partner],
+                                            'total_distance_traveled': [total_distance_traveled],
                                             })
 
         output_metrics = output_metrics.append(this_metrics)
@@ -127,7 +125,7 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
         
         #save the DF as a CSV file for fast parsing later. Can easily open this CSV
         #in your favorite program/language for analysis.
-        base_file_name = os.path.basename(file).split('.TXT')[0]+'_'+ani+'_'+'.csv'
+        base_file_name = os.path.basename(file).split('.TXT')[0]+'.csv'
         new_file_name = os.path.join(csv_out_path, base_file_name)
         if not suppress_csv:
             df.to_csv(os.path.join(save_dir,new_file_name))
@@ -135,5 +133,4 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
     #kinda assuming they're all from the same date here
     output_metrics.to_csv(os.path.join(plot_out_path, f'output_metrics_{date}.csv'))
     
-if __name__:
-    run_analysis()
+    return output_metrics 
