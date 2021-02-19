@@ -11,13 +11,16 @@ import numpy as np
 from tkinter import messagebox, filedialog, simpledialog
 import tkinter as tk
 
-def run_bin_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracking txt files/Baseline_Cohort1", 
-                 save_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracking txt files/Baseline_Cohort1_output_binned",
+def run_bin_analysis(start_dir = "/home/dprotter/Downloads/ppt test", 
+                 save_dir = None,
                  suppress_csv = True,
                  bin_time = 7200):
     
-    if not os.path.isdir("/media/dprotter/Storage/Cleversys/CleverSys tracking txt files/Baseline_Cohort1_output_binned"):
-        os.mkdir("/media/dprotter/Storage/Cleversys/CleverSys tracking txt files/Baseline_Cohort1_output_binned")
+    if not save_dir:
+        save_dir = start_dir
+    
+    if not os.path.isdir(save_dir):
+        os.mkdir(save_dir)
     #David Protter
     '''Parse all files in a folder. Run standard set of analysis and ouput basic plots.
     Convert all parsed files to CSV to make it easier to work with them in the future.'''
@@ -70,7 +73,7 @@ def run_bin_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tr
         print(f'working on file {i+1} of {num_files}')
         print(file)
         try:
-            full_df, ani, frame_rate, date, change_log = cp.parse(file)
+            df, ani, frame_rate, date = cp.parse(file)
         except Exception:
             print('oh no, a wild exception appears!')
             print(traceback.format_exc())
@@ -79,7 +82,8 @@ def run_bin_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tr
 
             continue
         print(f'it took {time.time() - start_time} sec to parse')
-        
+        time_change = time.time()
+        full_df, change_log = cp.correct_chamber_assignments(df)
 
         #the start and finish times of the first window. we will use These
         #to slice the full data frame
@@ -97,7 +101,7 @@ def run_bin_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tr
             df = full_df.loc[(full_df.Time > window_start_time) &
                             (full_df.Time < window_finish_time)]
             
-            df, change_log = cp.correct_chamber_assignments(df)
+            
             #huddle time novel,  partner, and total
             hn, hp, htot = uf.huddle_time(df, frame_rate)
 
@@ -182,7 +186,7 @@ def run_bin_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tr
             fig = uf.binned_huddle_fig(sli, ani)
             fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_huddle'))
             plt.close(fig)
-    output_metrics.to_csv(os.path.join(csv_out_path,'summary.csv'))
+    output_metrics.to_csv(os.path.join(csv_out_path,f'output_metrics_summary_{date}.csv))
 
 if __name__:
     run_bin_analysis()

@@ -15,14 +15,13 @@ Convert all parsed files to CSV to make it easier to work with them in the futur
 
 
 def run_analysis(start_dir, save_dir = None, suppress_csv = False):
-    
-    
+
     if not save_dir:
-        save_dir = start_dir
+    save_dir = start_dir
     
     if not os.path.isdir(save_dir):
         os.mkdir(save_dir)
-
+    
     #make a new savdir for plots only
     plot_out_path = os.path.join(save_dir, 'python_output')
     try:
@@ -135,7 +134,7 @@ def run_analysis(start_dir, save_dir = None, suppress_csv = False):
             df.to_csv(os.path.join(save_dir,new_file_name))
 
     #kinda assuming they're all from the same date here
-    output_metrics.to_csv(os.path.join(plot_out_path, f'output_metrics_{date}.csv'))
+    output_metrics.to_csv(os.path.join(plot_out_path, f'output_metrics_summary_{date}.csv'))
     
     return output_metrics
 
