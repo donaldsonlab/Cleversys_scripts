@@ -127,13 +127,19 @@ def run_bin_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tr
 
             #note reassigned rows
             reassigned_rows = len(df.loc[df['modified_due_to_uncertainty'] > 0])
-
+            percent_modified = 100*np.round(reassigned_rows / len(df), 3)
+            
+            _ ,fname = os.path.split(file)
+            print(f'Percent of bin {bin_number} in file {fname} reassigned due to uncertainty {percent_modified} %')
+            
+            huddle_latencies = uf.latency_to_huddle(df)
+            
             this_metrics = pd.DataFrame(data = {'animal':[animal_num],
                                                 'num_reassigned_rows':[reassigned_rows],
-                                                'reassigned_pct':[100*np.round(reassigned_rows / len(df), 3)],
+                                                'reassigned_pct':[percent_modified],
                                                 'treatment':[treatment_group],
-                                                'bin number':bin_number,
-                                                'bin length (min)': actual_bin_length,
+                                                'bin number':[bin_number],
+                                                'bin length (min)': [actual_bin_length],
                                                 'huddle time partner':[hp],
                                                 'huddle time novel':[hn],
                                                 'huddle time total':[htot],
@@ -142,8 +148,11 @@ def run_bin_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tr
                                                 'chamber time novel':[chamber_time_dict['chamber_novel']],
                                                 'chamber time center':[chamber_time_dict['chamber_center']],
                                                 'average distance to novel':[average_distance_novel],
-                                                'average_distance to partner':[average_distance_partner],
+                                                'average distance to partner':[average_distance_partner],
                                                 'total distance traveled': [total_distance_traveled],
+                                                'latency partner huddle':[huddle_latencies['partner_latency']],
+                                                'latency novel huddle':[huddle_latencies['novel_latency']],
+                                                'file_name':[fname],
                                                 })
 
             output_metrics = output_metrics.append(this_metrics)

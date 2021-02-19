@@ -102,7 +102,10 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
         reassigned_rows = len(df.loc[df['modified_due_to_uncertainty'] > 0])
         
         animal_num = ani.replace("['", '').replace("']", '')
-        this_metrics = pd.DataFrame(data = {'animal':[animal_num],
+        
+        huddle_latencies = uf.latency_to_huddle(df)
+        
+        output_data = {'animal':[animal_num],
                                             'num_reassigned_rows':[reassigned_rows],
                                             'reassigned_pct':[reassigned_rows / len(df)],
                                             'treatment':[treatment_group],
@@ -117,7 +120,11 @@ def run_analysis(start_dir = "/media/dprotter/Storage/Cleversys/CleverSys tracki
                                             'average distance to novel':[average_distance_novel],
                                             'average_distance to partner':[average_distance_partner],
                                             'total distance traveled': [total_distance_traveled],
-                                            })
+                                            'latency_partner_huddle':[huddle_latencies['partner_latency']],
+                                            'latency_novel_huddle':[huddle_latencies['novel_latency']],
+                                            }
+        
+        this_metrics = pd.DataFrame(data = output_data)
 
         output_metrics = output_metrics.append(this_metrics)
         time_3d_fig = uf.make_3d_movement_plot(df)

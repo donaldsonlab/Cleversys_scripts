@@ -108,3 +108,10 @@ def binned_huddle_fig(sli, ani):
 
     fig.suptitle(ani, fontsize = 16)
     return fig
+
+def latency_to_huddle(df):
+    '''return the latency to huddle with novel, partner'''
+    
+    partner_latency = df.loc[df.huddle_partner == 1, 'Time'].min()
+    novel_latency = df.loc[df.huddle_novel == 1, 'Time'].min()
+    return {'partner_latency':partner_latency, 'novel_latency':novel_latency}

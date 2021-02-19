@@ -11,27 +11,18 @@ import numpy as np
 #David Protter
 '''Parse all files in a folder. Run standard set of analysis and ouput basic plots.
 Convert all parsed files to CSV to make it easier to work with them in the future.'''
-computer_platform = platform.system()
-if computer_platform in ['Darwin', 'Linux']:
-    initialdir = '/'
-else:
-    initialdir = ''
-
-from tkinter import messagebox, filedialog
-'''messagebox.showinfo('yo dawg', 'where the files at?!?!')
-start_dir = filedialog.askdirectory(initialdir = initialdir)
-output_metrics
-choose_save_dir = messagebox.askquestion(message = 'Choose File Output Location? If "no", output will be placed in same folder as the input files', )
-if choose_save_dir == 'yes':
-    save_dir = filedialog.askdirectory(initialdir = initialdir)
-else:
-    save_dir = start_dir'''
 
 
-def run_analysis(start_dir, save_dir, suppress_csv):
+
+def run_analysis(start_dir, save_dir = None, suppress_csv = False):
     
-    if not os.path.isdir(start_dir):
-        os.mkdir(start_dir)
+    
+    if not save_dir:
+        save_dir = start_dir
+    
+    if not os.path.isdir(save_dir):
+        os.mkdir(save_dir)
+
     #make a new savdir for plots only
     plot_out_path = os.path.join(save_dir, 'python_output')
     try:
@@ -92,27 +83,40 @@ def run_analysis(start_dir, save_dir, suppress_csv):
 
         #calculate total locamotion
         total_distance_traveled = df['distance_traveled'].sum()
-
+        
+        #reformat animal num from '[#]' -> '#'
+        animal_num = ani.replace("['", '').replace("']", '')
+        
         #note reassigned rows
         reassigned_rows = len(df.loc[df['modified_due_to_uncertainty'] > 0])
-        percent_modified=100*np.round(reassigned_rows / len(df), 3)
-        print('Percent of file reassigned due to uncertainty ' + str(percent_modified) + '%')
+        percent_modified = 100*np.round(reassigned_rows / len(df), 3)
         
-        animal_num = ani.replace("['", '').replace("']", '')
+        _ ,fname = os.path.split(file)
+        print(f'Percent of file {fname} reassigned due to uncertainty {percent_modified} %')
+         
+        huddle_latencies = uf.latency_to_huddle(df)
+        
         this_metrics = pd.DataFrame(data = {'animal':[animal_num],
+                                            'num_reassigned_rows':[reassigned_rows],
+                                            'reassigned_pct':[percent_modified],
                                             'treatment':[treatment_group],
-                                            'bin number':0,
-                                            'huddle_time_partner':[hp],
-                                            'huddle_time_novel':[hn],
-                                            'huddle_time_total':[htot],
-                                            'percent_pHuddle':[norm_pref],
-                                            'chamber_time_partner':[chamber_time_dict['chamber_partner']],
-                                            'chamber_time_novel':[chamber_time_dict['chamber_novel']],
-                                            'chamber_time_center':[chamber_time_dict['chamber_center']],
-                                            'average_distance_to_novel':[average_distance_novel],
-                                            'average_distance_to_partner':[average_distance_partner],
-                                            'total_distance_traveled': [total_distance_traveled],
+                                            'huddle time partner':[hp],
+                                            'huddle time novel':[hn],
+                                            'huddle time total':[htot],
+                                            'percent pHuddle':[norm_pref],
+                                            'chamber time partner':[chamber_time_dict['chamber_partner']],
+                                            'chamber time novel':[chamber_time_dict['chamber_novel']],
+                                            'chamber time center':[chamber_time_dict['chamber_center']],
+                                            'average distance to novel':[average_distance_novel],
+                                            'average distance to partner':[average_distance_partner],
+                                            'total distance traveled': [total_distance_traveled],
+                                            'latency partner huddle':[huddle_latencies['partner_latency']],
+                                            'latency novel huddle':[huddle_latencies['novel_latency']],
+                                            'file_name':[fname],
+
+                                            
                                             })
+
 
         output_metrics = output_metrics.append(this_metrics)
         time_3d_fig = uf.make_3d_movement_plot(df)
@@ -133,4 +137,7 @@ def run_analysis(start_dir, save_dir, suppress_csv):
     #kinda assuming they're all from the same date here
     output_metrics.to_csv(os.path.join(plot_out_path, f'output_metrics_{date}.csv'))
     
-    return output_metrics 
+    return output_metrics
+
+if __name__ == '__main__':
+    run_analysis(start_dir = '/home/dprotter/Downloads/ppt test') 

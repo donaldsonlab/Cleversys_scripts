@@ -456,7 +456,8 @@ def parse_dev(file):
     
 
     #calculate time from frame num ( frame * 1 / (frame / sec)  --> sec )
-    df['Time'] = df.FrameNum/frame_rate
+    #frames start at 1, but we want time to start at 0s, so subtract off 1
+    df['Time'] = (df.FrameNum - 1)/frame_rate
     df['original_time'] = df.original_frames / frame_rate
 
     #add column of treatment group (IE Naive, Drug, etc)
