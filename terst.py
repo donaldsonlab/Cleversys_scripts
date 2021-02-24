@@ -11,8 +11,4 @@ import numpy as np
 from tkinter import messagebox, filedialog, simpledialog
 import tkinter as tk
 
-window = tk.Tk()
-inp = simpledialog.askfloat('timebins?','timebin length in minutes? (0 = no timebins. )', parent = window)
 
-window.destroy()
-print(inp)

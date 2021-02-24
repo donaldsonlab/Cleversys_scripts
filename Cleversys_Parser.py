@@ -633,7 +633,7 @@ def get_index_pairs(index_list):
             pairs += [[index_list[prev], index_list[-1]]]
     return np.asarray(pairs)
 
-def correct_chamber_assignments(df_in):
+def correct_chamber_assignments(df_in, verbose = False):
     indices = df_in.loc[(df_in.chamber_partner >0)&(df_in.chamber_novel >0) & (df_in.chamber_center > 0)].index
     pairs = get_index_pairs(indices)
     
@@ -648,7 +648,8 @@ def correct_chamber_assignments(df_in):
         loc, col = get_previous_location(df_in, search_start_index=start, window = 3)
         st = df_in.iloc[start]["original_time"]
         ft = df_in.iloc[finish]["original_time"]
-        print(f'time_start: {st:.2f} time_end: {ft:.2f} reassigned_to: {col}       index_start: {start} index_finish: {finish} distance: {start-loc}')
+        if verbose:
+            print(f'time_start: {st:.2f} time_end: {ft:.2f} reassigned_to: {col}       index_start: {start} index_finish: {finish} distance: {start-loc}')
         mod_log += [[st, ft, col, start, finish, start-loc]]
     
         new_df.loc[(new_df.index >= start) & (new_df.index <= finish), 'reassigned_to'] = col 

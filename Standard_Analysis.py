@@ -17,7 +17,7 @@ Convert all parsed files to CSV to make it easier to work with them in the futur
 def run_analysis(start_dir, save_dir = None, suppress_csv = False):
 
     if not save_dir:
-    save_dir = start_dir
+        save_dir = start_dir
     
     if not os.path.isdir(save_dir):
         os.mkdir(save_dir)
@@ -139,4 +139,4 @@ def run_analysis(start_dir, save_dir = None, suppress_csv = False):
     return output_metrics
 
 if __name__ == '__main__':
-    run_analysis(start_dir = '/home/dprotter/Downloads/ppt test') 
+    run_analysis(start_dir = '/Users/davidprotter/Desktop/tmp') 
