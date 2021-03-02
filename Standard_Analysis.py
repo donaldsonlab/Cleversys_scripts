@@ -122,7 +122,9 @@ def run_analysis(start_dir, save_dir = None, suppress_csv = False):
         huddle_fig = uf.make_huddle_time_polt(hp, hn, animal_num)
         time_3d_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_movement'))
         huddle_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_huddle_time'))
-
+        plt.close(huddle_fig)
+        plt.close(time_3d_fig)
+        
         pd.DataFrame(data = change_log[1:], columns=change_log[0]).to_csv(
                                     os.path.join(plot_out_path, f'change_log_{ani}_{date}.csv'))
         
