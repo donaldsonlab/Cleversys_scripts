@@ -118,8 +118,8 @@ def run_bin_analysis(start_dir = "/home/dprotter/Downloads/ppt test",
                 norm_pref = np.nan
 
             #calculate average distance between test animal and other animals
-            average_distance_novel = df['distance_to_novel'].mean()
-            average_distance_partner = df['distance_to_partner'].mean()
+            average_distance_novel = df.loc[df.chamber_novel ==1, 'distance_to_novel'].mean()
+            average_distance_partner = df.loc[df.chamber_partner ==1, 'distance_to_partner'].mean()
 
             #calculate total locamotion
             total_distance_traveled = df['distance_traveled'].sum()
@@ -186,7 +186,7 @@ def run_bin_analysis(start_dir = "/home/dprotter/Downloads/ppt test",
             fig = uf.binned_huddle_fig(sli, ani)
             fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_huddle'))
             plt.close(fig)
-    output_metrics.to_csv(os.path.join(csv_out_path,f'output_metrics_summary_{date}.csv))
+    output_metrics.to_csv(os.path.join(csv_out_path,f'output_metrics_summary_{date}.csv'))
 
 if __name__:
     run_bin_analysis()
