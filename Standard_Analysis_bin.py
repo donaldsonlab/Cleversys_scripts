@@ -186,7 +186,7 @@ def run_bin_analysis(start_dir = "/home/dprotter/Downloads/ppt test",
             fig = uf.binned_huddle_fig(sli, ani)
             fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_huddle'))
             plt.close(fig)
-    output_metrics.to_csv(os.path.join(csv_out_path,f'output_metrics_summary_{date}.csv))
+    output_metrics.to_csv(os.path.join(csv_out_path,f'output_metrics_summary_{date}.csv'))
 
 if __name__:
     run_bin_analysis()
