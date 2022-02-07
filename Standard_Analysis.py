@@ -77,8 +77,8 @@ def run_analysis(start_dir, save_dir = None, suppress_csv = False):
             norm_pref = np.nan
 
         #calculate average distance between test animal and other animals
-        average_distance_novel = df['distance_to_novel'].mean()
-        average_distance_partner = df['distance_to_partner'].mean()
+        average_distance_novel = df.loc[df.chamber_novel ==1, 'distance_to_novel'].mean()
+        average_distance_partner = df.loc[df.chamber_partner ==1, 'distance_to_partner'].mean()
 
         #calculate total locamotion
         total_distance_traveled = df['distance_traveled'].sum()
@@ -122,9 +122,7 @@ def run_analysis(start_dir, save_dir = None, suppress_csv = False):
         huddle_fig = uf.make_huddle_time_polt(hp, hn, animal_num)
         time_3d_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_movement'))
         huddle_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_huddle_time'))
-        plt.close(huddle_fig)
-        plt.close(time_3d_fig)
-        
+
         pd.DataFrame(data = change_log[1:], columns=change_log[0]).to_csv(
                                     os.path.join(plot_out_path, f'change_log_{ani}_{date}.csv'))
         
@@ -141,4 +139,4 @@ def run_analysis(start_dir, save_dir = None, suppress_csv = False):
     return output_metrics
 
 if __name__ == '__main__':
-    run_analysis(start_dir = '/Users/davidprotter/Desktop/tmp') 
+    run_analysis(start_dir = '/home/dprotter/Downloads/ppt test') 

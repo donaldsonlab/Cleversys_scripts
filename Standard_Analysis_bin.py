@@ -118,8 +118,8 @@ def run_bin_analysis(start_dir = "/home/dprotter/Downloads/ppt test",
                 norm_pref = np.nan
 
             #calculate average distance between test animal and other animals
-            average_distance_novel = df['distance_to_novel'].mean()
-            average_distance_partner = df['distance_to_partner'].mean()
+            average_distance_novel = df.loc[df.chamber_novel ==1, 'distance_to_novel'].mean()
+            average_distance_partner = df.loc[df.chamber_partner ==1, 'distance_to_partner'].mean()
 
             #calculate total locamotion
             total_distance_traveled = df['distance_traveled'].sum()
