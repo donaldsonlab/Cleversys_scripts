@@ -117,7 +117,7 @@ def run_analysis(start_dir, save_dir = None, suppress_csv = False):
                                             })
 
 
-        output_metrics = output_metrics.append(this_metrics)
+        output_metrics = pd.concat([output_metrics, this_metrics])
         time_3d_fig = uf.make_3d_movement_plot(df)
         huddle_fig = uf.make_huddle_time_polt(hp, hn, animal_num)
         time_3d_fig.savefig(os.path.join(plot_out_path, f'{ani}_{date}_movement'))
